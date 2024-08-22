@@ -140,9 +140,9 @@ export class BrokerApplicationsListController {
     @User() user: BrokerDto,
     @Body() body: ApplicationDto
   ): Promise<BrokerApplicationPostResponseDto> {
-    const application = await this.applicationEntity.create({ ...body, status: ApplicationStatus.Submitted, brokerId: user.id });
     const avgLoanAmount = await this.applicationEntity.getAverageLoanAmount()
     const loanAmount = body.loanAmount !== avgLoanAmount ? body.loanAmount : null;
+    const application = await this.applicationEntity.create({ ...body, status: ApplicationStatus.Submitted, brokerId: user.id });
     return {
       success: true,
       loanAmount
